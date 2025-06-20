@@ -1,13 +1,5 @@
 pipeline {
   agent any
-
-  stages {
-    stage('Checkout') {
-      steps {
-        git 'https://github.com/aditya3011ai/ci-cd-pipeline-project.git'
-      }
-    }
-
     stage('Install Dependencies') {
       steps {
         sh 'npm install'

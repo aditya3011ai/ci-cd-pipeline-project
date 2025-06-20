@@ -1,6 +1,9 @@
 pipeline {
-  agent any
-
+    agent {
+    docker {
+      image 'node:18'
+      args '-p 3000:3000'
+    }
   stages {
     stage('Install Dependencies') {
       steps {

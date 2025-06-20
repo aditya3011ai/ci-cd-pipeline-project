@@ -1,26 +1,33 @@
 pipeline {
   agent any
+
+  stages {
     stage('Install Dependencies') {
       steps {
+        echo 'Installing dependencies...'
         sh 'npm install'
       }
     }
 
     stage('Run Tests') {
       steps {
-        sh 'echo "Tests passed ✅"'
+        echo 'Running tests...'
+        sh 'npm test'
       }
     }
 
     stage('Build Docker Image') {
       steps {
-        sh 'docker build -t node-app-ci .'
+        echo 'Building Docker image...'
+        sh 'docker build -t ci-cd-node-app .'
       }
     }
 
     stage('Run Container') {
       steps {
-        sh 'docker run -d -p 3000:3000 --name node-app-temp node-app-ci || true'
+        echo 'Running Docker container...'
+        sh 'docker run -d -p 3000:3000 ci-cd-node-app'
       }
     }
   }
+}
